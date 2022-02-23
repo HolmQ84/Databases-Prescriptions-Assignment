@@ -1,6 +1,7 @@
 package db.prescriptions.assignment.Model;
 
 import lombok.Data;
+import lombok.ToString;
 
 import javax.persistence.*;
 
@@ -9,12 +10,14 @@ import javax.persistence.*;
 @Table(name = "person")
 public class Person {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "person_id")
     private int personId;
     private String firstname;
     private String lastname;
-    private int cpr;
+    private String cpr;
     private String password;
-    @OneToOne(mappedBy = "addressId")
+    @OneToOne(cascade=CascadeType.ALL)
+    @JoinColumn(name = "address_id", referencedColumnName = "address_id")
     private Address address;
 }
