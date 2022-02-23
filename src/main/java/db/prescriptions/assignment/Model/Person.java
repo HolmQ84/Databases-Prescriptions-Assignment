@@ -13,7 +13,7 @@ public class Person {
     private int personId;
     private String firstname;
     private String lastname;
-    private int cpr;
+    private String cpr;
     private String password;
     @OneToOne(mappedBy = "addressId")
     private Address address;

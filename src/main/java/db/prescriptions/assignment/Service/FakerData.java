@@ -27,17 +27,18 @@ public class FakerData {
         person.setFirstname(faker.name().firstName());
         person.setFirstname(faker.name().lastName());
         // Generate CPR number.
-        String birthdate = new SimpleDateFormat("ddMMyy").parse(faker.date().birthday(5, 80).toString()).toString();
+        SimpleDateFormat sdf = new SimpleDateFormat("ddMMyy");
+        Date birthdate = new Date(faker.date().birthday(5, 80).getTime());
         Random rand = new Random();
         String lastFourDigits = null;
         if (mf) {
             // If male.
-            lastFourDigits = Integer.toString(1000+rand.nextInt((9998-1000)/2) *2) + 1;
+            lastFourDigits = Integer.toString(rand.nextInt((9998-1000)/2) *2) + 1000;
         } else {
             // If female.
-            lastFourDigits = Integer.toString(1000+rand.nextInt((9998-1000)/2) *2);
+            lastFourDigits = Integer.toString(rand.nextInt((9998-1000)/2) *2) + 1001;
         }
-        person.setCpr(Integer.parseInt(birthdate+lastFourDigits));
+        person.setCpr((sdf.format(birthdate) +'-'+ lastFourDigits));
         person.setPassword(faker.crypto().toString());
 
         Address address = new Address();

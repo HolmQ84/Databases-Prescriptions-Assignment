@@ -11,8 +11,8 @@ public class Tester {
     public static void main(String[] args) throws ParseException {
         Faker faker = new Faker();
         SimpleDateFormat sdf = new SimpleDateFormat("ddMMyy");
-        sdf.parse(String.valueOf(faker.date().birthday(5, 80).getDate()));
-        System.out.println();
+        // sdf.parse(String.valueOf(faker.date().birthday(5, 80).getTime()));
+        System.out.println(sdf.parse(String.valueOf(faker.date().birthday(5, 80).getTime())));
         // String birthdate = new SimpleDateFormat("ddMMyy").parse(faker.date().birthday(5, 80).toString()).toString();
 
         /*
