@@ -15,8 +15,6 @@ public class Street {
     @Column(name = "street_id")
     private int streetId;
     private String streetName;
-    @OneToOne(mappedBy = "street")
-    private Address address;
 
     @Override
     public String toString() {

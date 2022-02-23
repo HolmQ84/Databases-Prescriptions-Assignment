@@ -9,15 +9,17 @@ import java.text.SimpleDateFormat;
 public class Tester {
 
     public static void main(String[] args) throws ParseException {
-        Faker faker = new Faker();
+
+        FakerData faker = new FakerData();
+        /*
         SimpleDateFormat sdf = new SimpleDateFormat("ddMMyy");
         sdf.parse(String.valueOf(faker.date().birthday(5, 80)));
         System.out.println(sdf.parse(String.valueOf(faker.date().birthday(5, 80).getDate())));
-        // String birthdate = new SimpleDateFormat("ddMMyy").parse(faker.date().birthday(5, 80).toString()).toString();
-
-        /*
+        String birthdate = new SimpleDateFormat("ddMMyy").parse(faker.date().birthday(5, 80).toString()).toString();
         FakerData fakerData = new FakerData();
         fakerData.createFakePerson(true);
         */
+        faker.checkGender("Runedfs");
+
     }
 }

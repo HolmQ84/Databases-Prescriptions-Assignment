@@ -16,8 +16,6 @@ public class City {
     private int cityId;
     private String cityName;
     private int postalCode;
-    @OneToOne(mappedBy = "city")
-    private Address address;
 
     @Override
     public String toString() {

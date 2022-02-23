@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Data
 @Entity
@@ -15,6 +16,7 @@ public class Person {
     private int personId;
     private String firstname;
     private String lastname;
+    private Date birthdate;
     private String cpr;
     private String password;
     @OneToOne(cascade=CascadeType.ALL)
