@@ -7,7 +7,6 @@ import java.text.ParseException;
 public class Tester {
 
     public static void main(String[] args) throws ParseException {
-
         FakerData faker = new FakerData();
         /*
         SimpleDateFormat sdf = new SimpleDateFormat("ddMMyy");
@@ -17,7 +16,6 @@ public class Tester {
         FakerData fakerData = new FakerData();
         fakerData.createFakePerson(true);
         */
-        faker.checkGender("Runedfs");
-
+        faker.checkGender("Kim");
     }
 }

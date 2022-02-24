@@ -17,8 +17,12 @@ public class TestController {
 
     @RequestMapping("/createManyPersons")
     public List<Person> createManyFakePersons() {
+        long startTime = System.currentTimeMillis();
         FakerData fakerData = new FakerData();
-        return fakerData.createFakePersons(100, personRepository);
+        List<Person> persons = fakerData.createFakePersons(100, personRepository);
+        long elapsedTime = System.currentTimeMillis() - startTime;
+        System.out.println(elapsedTime);
+        return persons;
     }
 
     @RequestMapping("/createPerson")
