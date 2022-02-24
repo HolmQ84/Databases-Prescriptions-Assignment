@@ -10,18 +10,19 @@ import java.sql.Date;
 @Table(name = "prescription")
 public class Prescription {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int prescriptionId;
     private Date expirationDate;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "medicine_id", nullable = false)
     private Medicine medicine;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="patient_id", nullable = false)
     private Patient patient;
-    @OneToOne(mappedBy = "doctorId", optional = false)
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="doctor_id", nullable = false)
     private Doctor doctor;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "pharmacy_id")
     private Pharmacy pharmacy;
 }

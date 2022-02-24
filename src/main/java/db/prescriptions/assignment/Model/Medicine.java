@@ -10,7 +10,7 @@ import javax.persistence.*;
 public class Medicine {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int medicineId;
     private String medicineName;
     private int amount;

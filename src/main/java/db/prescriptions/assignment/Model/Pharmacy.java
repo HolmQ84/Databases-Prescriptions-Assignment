@@ -9,8 +9,10 @@ import javax.persistence.*;
 @Table(name = "pharmacy")
 public class Pharmacy {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "pharmacy_id")
     private int pharmacyId;
-    @OneToOne(mappedBy = "addressId")
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "address_id", referencedColumnName = "address_id")
     private Address address;
 }

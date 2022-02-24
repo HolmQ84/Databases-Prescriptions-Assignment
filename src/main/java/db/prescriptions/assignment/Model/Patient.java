@@ -9,11 +9,12 @@ import javax.persistence.*;
 @Table(name = "patient")
 public class Patient {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int patientId;
-    @OneToOne(mappedBy = "personId")
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "person_id", referencedColumnName = "person_id")
     private Person person;
     @ManyToOne
-    @JoinColumn(name = "doctor_id", nullable = false)
+    @JoinColumn(name = "doctor_id", referencedColumnName = "doctor_id" , nullable = false)
     private Doctor doctor;
 }
