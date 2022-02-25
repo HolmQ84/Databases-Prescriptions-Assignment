@@ -1,13 +1,15 @@
 package db.prescriptions.assignment;
 
-import db.prescriptions.assignment.Service.FakerData;
+import com.github.javafaker.Faker;
+import db.prescriptions.assignment.Service.FakerData.FakerPerson;
 
 import java.text.ParseException;
 
 public class Tester {
 
     public static void main(String[] args) throws ParseException {
-        FakerData faker = new FakerData();
+        Faker faker = new Faker();
+        FakerPerson fakerPerson = new FakerPerson();
         /*
         SimpleDateFormat sdf = new SimpleDateFormat("ddMMyy");
         sdf.parse(String.valueOf(faker.date().birthday(5, 80)));
@@ -16,6 +18,6 @@ public class Tester {
         FakerData fakerData = new FakerData();
         fakerData.createFakePerson(true);
         */
-        faker.checkGender("Kim");
+        System.out.println(faker.address().cityName());
     }
 }

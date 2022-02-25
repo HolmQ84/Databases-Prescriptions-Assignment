@@ -1,4 +1,4 @@
-package db.prescriptions.assignment.Service;
+package db.prescriptions.assignment.Service.FakerData;
 
 import com.github.javafaker.Faker;
 import com.google.gson.Gson;
@@ -15,7 +15,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Service
-public class FakerData {
+public class FakerPerson {
 
     public List<Person> createFakePersons(int loopAmount, PersonRepository personRepository) {
         List<Person> createdPersons = new ArrayList<>();
@@ -33,9 +33,8 @@ public class FakerData {
             } else {
                 shortname += person.getFirstname().substring(0,3)+person.getLastname().substring(0,3);
             }
-
             person.setEmail(shortname.toLowerCase(Locale.ROOT)+(random.nextInt(899)+100)+"@gmail.com");
-            // Generate Birthdate.
+            // Generate birthdate.
             Date birthdate = new Date(faker.date().birthday(0, 90).getTime());
             person.setBirthdate(birthdate);
             // Generating last 4 digits for CPR.
@@ -65,16 +64,17 @@ public class FakerData {
             address.setStreet(street);
             person.setAddress(address);
             // Save the new person.
-            try {
-                System.out.println(person);
-                personRepository.save(person);
-                createdPersons.add(person);
-            } catch (Exception e) {
-                e.printStackTrace();
-                createdPersons.add((new Person()));
-            }
+            createdPersons.add(person);
         }
-        return createdPersons;
+        try {
+            personRepository.saveAll(createdPersons);
+            System.out.println("Success! - Created " + loopAmount + " new persons.");
+            return createdPersons;
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Failed! - Couldn't save persons to DB.");
+            return new ArrayList<Person>();
+        }
     }
 
     public Person createFakePerson(PersonRepository personRepository) {
@@ -133,7 +133,6 @@ public class FakerData {
         String result = restTemplate.getForObject(url, String.class);
         Gson gson = new Gson();
         GenderResult genderResult = gson.fromJson(result, GenderResult.class);
-        System.out.println(genderResult.getGender());
         return genderResult.getGender();
     }
 }

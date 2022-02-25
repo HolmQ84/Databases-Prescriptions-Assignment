@@ -13,11 +13,7 @@ public class Doctor {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "doctor_id")
     private int doctorId;
-    @OneToOne
+    @OneToOne(cascade=CascadeType.ALL)
     @JoinColumn(name = "person_id", referencedColumnName = "person_id")
     private Person person;
-    @OneToMany(mappedBy = "patientId")
-    private List<Patient> patientList;
-    @OneToMany(mappedBy = "doctor")
-    private List<Prescription> prescription;
 }
