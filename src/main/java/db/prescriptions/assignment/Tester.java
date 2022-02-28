@@ -1,23 +1,20 @@
 package db.prescriptions.assignment;
 
 import com.github.javafaker.Faker;
-import db.prescriptions.assignment.Service.FakerData.FakerPerson;
+import db.prescriptions.assignment.Service.FakerData.VariousFunctions;
+import org.apache.tomcat.jni.Time;
 
 import java.text.ParseException;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class Tester {
 
     public static void main(String[] args) throws ParseException {
-        Faker faker = new Faker();
-        FakerPerson fakerPerson = new FakerPerson();
-        /*
-        SimpleDateFormat sdf = new SimpleDateFormat("ddMMyy");
-        sdf.parse(String.valueOf(faker.date().birthday(5, 80)));
-        System.out.println(sdf.parse(String.valueOf(faker.date().birthday(5, 80).getDate())));
-        String birthdate = new SimpleDateFormat("ddMMyy").parse(faker.date().birthday(5, 80).toString()).toString();
-        FakerData fakerData = new FakerData();
-        fakerData.createFakePerson(true);
-        */
-        System.out.println(faker.address().cityName());
+        VariousFunctions vf = new VariousFunctions();
+        System.out.println(vf.getRandomDateFromNowTo());
     }
 }

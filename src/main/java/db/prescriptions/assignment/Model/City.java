@@ -25,4 +25,12 @@ public class City {
                 ", postalCode=" + postalCode +
                 '}';
     }
+
+    public City(String cityName, int postalCode) {
+        this.cityName = cityName;
+        this.postalCode = postalCode;
+    }
+
+    public City() {
+    }
 }

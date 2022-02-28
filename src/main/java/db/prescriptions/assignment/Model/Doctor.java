@@ -16,4 +16,11 @@ public class Doctor {
     @OneToOne(cascade=CascadeType.ALL)
     @JoinColumn(name = "person_id", referencedColumnName = "person_id")
     private Person person;
+
+    public Doctor(Person person) {
+        this.person = person;
+    }
+
+    public Doctor() {
+    }
 }
