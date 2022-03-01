@@ -6,6 +6,8 @@ import db.prescriptions.assignment.Model.Pharmacy;
 import db.prescriptions.assignment.Repository.MedicineRepository;
 import db.prescriptions.assignment.Repository.PersonRepository;
 import db.prescriptions.assignment.Repository.PharmacyRepository;
+import db.prescriptions.assignment.Repository.PrescriptionRepository;
+import db.prescriptions.assignment.Service.EmailService;
 import db.prescriptions.assignment.Service.FakerData.FakerMedicine;
 import db.prescriptions.assignment.Service.FakerData.FakerPerson;
 import db.prescriptions.assignment.Service.FakerData.FakerPharmacy;
@@ -24,6 +26,10 @@ public class TestController {
     MedicineRepository medicineRepository;
     @Autowired
     PharmacyRepository pharmacyRepository;
+    @Autowired
+    PrescriptionRepository prescriptionRepository;
+
+
 
     @RequestMapping("/createManyPersons")
     public List<Person> createManyFakePersons() {
@@ -52,4 +58,16 @@ public class TestController {
         FakerPharmacy fakerPharmacy = new FakerPharmacy();
         return fakerPharmacy.createPharmacies(100, pharmacyRepository);
     }
+
+    @RequestMapping("/fetchExpireingPerscriptionsEmails")
+    public void fetchEmails() {
+        EmailService emailService = new EmailService();
+        List<String> emailsToSend = personRepository.fetchEmailsWherePrescriptionExpireInOneWeek();
+
+        for (int i = 0; i < emailsToSend.size(); i++) {
+            emailService.sendSimpleMessage(emailsToSend.get(i));
+        }
+    }
 }
+
+
