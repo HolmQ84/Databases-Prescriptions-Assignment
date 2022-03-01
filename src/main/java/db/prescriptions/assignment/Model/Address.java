@@ -32,4 +32,22 @@ public class Address {
                 ", city=" + city +
                 '}';
     }
+
+    public Address() {
+    }
+
+    public Address(int addressId, Street street, String streetNumber, City city, String country) {
+        this.addressId = addressId;
+        this.street = street;
+        this.streetNumber = streetNumber;
+        this.city = city;
+        this.country = country;
+    }
+
+    public Address(Street street, String streetNumber, City city, String country) {
+        this.street = street;
+        this.streetNumber = streetNumber;
+        this.city = city;
+        this.country = country;
+    }
 }

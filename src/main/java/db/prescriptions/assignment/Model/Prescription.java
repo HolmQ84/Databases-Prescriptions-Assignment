@@ -3,7 +3,7 @@ package db.prescriptions.assignment.Model;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.util.Date;
 
 @Data
 @Entity
@@ -25,4 +25,14 @@ public class Prescription {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "pharmacy_id")
     private Pharmacy pharmacy;
+
+    public Prescription(Date expirationDate, Medicine medicine, Patient patient, Doctor doctor) {
+        this.expirationDate = expirationDate;
+        this.medicine = medicine;
+        this.patient = patient;
+        this.doctor = doctor;
+    }
+
+    public Prescription() {
+    }
 }

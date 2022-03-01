@@ -23,4 +23,11 @@ public class Street {
                 ", streetName='" + streetName + '\'' +
                 '}';
     }
+
+    public Street(String streetName) {
+        this.streetName = streetName;
+    }
+
+    public Street() {
+    }
 }

@@ -23,4 +23,17 @@ public class Person {
     @OneToOne(cascade=CascadeType.ALL)
     @JoinColumn(name = "address_id", referencedColumnName = "address_id")
     private Address address;
+
+    public Person(String firstname, String lastname, String email, Date birthdate, String cpr, String password, Address address) {
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.email = email;
+        this.birthdate = birthdate;
+        this.cpr = cpr;
+        this.password = password;
+        this.address = address;
+    }
+
+    public Person() {
+    }
 }

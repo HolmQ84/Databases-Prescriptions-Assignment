@@ -14,7 +14,7 @@ import java.util.List;
 @Service
 public class FakerMedicine {
 
-    public List<Medicine> createFakeMedicine(MedicineRepository medicineRepository) {
+    public List<Medicine> createFakeMedicine() {
         List<Medicine> medicineList = new ArrayList<>();
         medicineList.add(new Medicine("Abilify", 20, "stk.", "Abilify® er et middel mod psykoser."));
         medicineList.add(new Medicine("Actilyse", 10, "stk.", "Actilyse® er et middel til opløsning af blodpropper."));
@@ -45,17 +45,7 @@ public class FakerMedicine {
         medicineList.add(new Medicine("Xagrid", 10, "stk.", "Xagrid® er et celledræbende middel."));
         medicineList.add(new Medicine("Yentreve", 100, "ml.", "Yentreve® er et middel mod ufrivillig vandladning."));
         medicineList.add(new Medicine("Zaditen", 10, "stk.", "Zaditen® er et øjenmiddel mod allergi. Antihistamin."));
-        try {
-            medicineRepository.saveAll(medicineList);
-            System.out.println("Medicine created.");
-            return medicineList;
-        } catch (Exception e) {
-            if (e.getClass().toString().contains("DataIntegrityViolationException")) {
-                DataIntegrityViolationException dive = (DataIntegrityViolationException) e;
-                System.out.println(dive.getMostSpecificCause());
-                return new ArrayList<Medicine>();
-            }
-        }
-        return new ArrayList<Medicine>();
+
+        return medicineList;
     }
 }

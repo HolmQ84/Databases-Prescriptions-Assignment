@@ -1,15 +1,10 @@
 package db.prescriptions.assignment.Service.FakerData;
 
 import com.github.javafaker.Faker;
-import com.google.gson.Gson;
-import db.prescriptions.assignment.DTO.GenderResult;
 import db.prescriptions.assignment.Model.Address;
-import db.prescriptions.assignment.Model.City;
 import db.prescriptions.assignment.Model.Person;
-import db.prescriptions.assignment.Model.Street;
 import db.prescriptions.assignment.Repository.PersonRepository;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -17,7 +12,7 @@ import java.util.*;
 @Service
 public class FakerPerson {
 
-    public List<Person> createFakePersons(int loopAmount, PersonRepository personRepository) {
+    public List<Person> createFakePersons(int loopAmount) {
         List<Person> createdPersons = new ArrayList<>();
         Random random = new Random();
         Faker faker = new Faker();
@@ -39,8 +34,8 @@ public class FakerPerson {
             person.setBirthdate(birthdate);
             // Generating last 4 digits for CPR.
             int lastFourDigits = (random.nextInt((9998-1000)/2) *2) + 1000;
-            String gender = checkGender(person.getFirstname());
-            if (gender.equals("male") || gender.equals("null")) lastFourDigits++;
+            VariousFunctions variousFunctions = new VariousFunctions();
+            if (variousFunctions.checkGender(person.getFirstname())) lastFourDigits++;
             // Converting to correct CPR format.
             SimpleDateFormat sdf = new SimpleDateFormat("ddMMyy");
             String cpr = (sdf.format(birthdate) +'-'+ lastFourDigits);
@@ -48,36 +43,17 @@ public class FakerPerson {
             // Generate password.
             String password = faker.crypto().md5();
             person.setPassword(password);
-            // Generate city and postal code.
-            City city = new City();
-            city.setCityName(faker.address().cityName());
-            int postalCode = random.nextInt(89998) + 10001;
-            city.setPostalCode(postalCode);
-            // Generate street.
-            Street street = new Street();
-            street.setStreetName(faker.address().streetName());
-            // Creating address and generating input.
-            Address address = new Address();
-            address.setStreetNumber(String.valueOf(random.nextInt(98) + 1));
-            address.setCountry(faker.address().country());
-            address.setCity(city);
-            address.setStreet(street);
+            // Get random address.
+            FakerAddress fakerAddress = new FakerAddress();
+            Address address = fakerAddress.createAddress();
             person.setAddress(address);
             // Save the new person.
             createdPersons.add(person);
         }
-        try {
-            personRepository.saveAll(createdPersons);
-            System.out.println("Success! - Created " + loopAmount + " new persons.");
-            return createdPersons;
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("Failed! - Couldn't save persons to DB.");
-            return new ArrayList<Person>();
-        }
+        return createdPersons;
     }
 
-    public Person createFakePerson(PersonRepository personRepository) {
+    public Person createFakePerson() {
         Random random = new Random();
         Faker faker = new Faker();
         Person person = new Person();
@@ -92,8 +68,8 @@ public class FakerPerson {
         person.setBirthdate(birthdate);
         // Generating last 4 digits for CPR.
         int lastFourDigits = (random.nextInt((9998-1000)/2) *2) + 1000;
-        String gender = checkGender(person.getFirstname());
-        if (gender.equals("male") || gender.equals("null")) lastFourDigits++;
+        VariousFunctions variousFunctions = new VariousFunctions();
+        if (variousFunctions.checkGender(person.getFirstname())) lastFourDigits++;
         // Converting to correct CPR format.
         SimpleDateFormat sdf = new SimpleDateFormat("ddMMyy");
         String cpr = (sdf.format(birthdate) +'-'+ lastFourDigits);
@@ -101,38 +77,11 @@ public class FakerPerson {
         // Generate password.
         String password = faker.crypto().md5();
         person.setPassword(password);
-        // Generate city and postal code.
-        City city = new City();
-        city.setCityName(faker.address().cityName());
-        int postalCode = random.nextInt(89998) + 10001;
-        city.setPostalCode(postalCode);
-        // Generate street.
-        Street street = new Street();
-        street.setStreetName(faker.address().streetName());
-        // Creating address and generating input.
-        Address address = new Address();
-        address.setStreetNumber(String.valueOf(random.nextInt(98) + 1));
-        address.setCountry(faker.address().country());
-        address.setCity(city);
-        address.setStreet(street);
+        // Get random address.
+        FakerAddress fakerAddress = new FakerAddress();
+        Address address = fakerAddress.createAddress();
         person.setAddress(address);
-        // Save the new person.
-        try {
-            System.out.println(person);
-            personRepository.save(person);
-            return person;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return new Person();
-        }
-    }
 
-    public String checkGender(String firstname) {
-        String url = "https://api.genderize.io/?name="+firstname;
-        RestTemplate restTemplate = new RestTemplate();
-        String result = restTemplate.getForObject(url, String.class);
-        Gson gson = new Gson();
-        GenderResult genderResult = gson.fromJson(result, GenderResult.class);
-        return genderResult.getGender();
+        return person;
     }
 }
